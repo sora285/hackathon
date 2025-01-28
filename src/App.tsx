@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
 } from "react-router-dom";
 
 // ページコンポーネントのインポート
@@ -14,6 +13,7 @@ import "./App.css"; // CSS ファイルをインポート
 import Setting from "./pages/Setting";
 import { Header } from "./components/Header";
 import Footer from "./components/Footer";
+import ProfileSetting from "./components/Profile-Setting";
 
 const App: React.FC = () => {
   return (
@@ -29,6 +29,7 @@ const App: React.FC = () => {
             <Route path="/todo" element={<Todo />} />
             <Route path="/setting" element={<Setting />} />
             <Route path="/progress" element={<Progress />} />
+            <Route path="/profile-setting" element={<ProfileSetting />} />
           </Routes>
         </main>
 

@@ -1,10 +1,9 @@
 import React from "react";
-import MapView from "../components/Mapview";
-import "./Progress.css";
+import { MapView } from "../components/Mapview";
 
 const Progress: React.FC = () => {
   return (
-    <div>
+    <div style={{ alignItems: 'center' }}>
       <MapView />
     </div>
   );

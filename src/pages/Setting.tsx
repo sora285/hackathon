@@ -1,32 +1,30 @@
 import React, { useState } from "react";
-import "./Setting.css"; // スタイルを外部ファイルに分離
+import Profile from "../components/Profile";
+
 
 const Setting: React.FC = () => {
   // 状態の管理
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("ja");
+
   const [fontSize, setFontSize] = useState<number>(16);
 
   return (
-    <div id="settings">
+    <div style={{
+      padding: "20px",
+    }}>
+      
+      
+      {/* プロフィールコンポーネント */}
+      <Profile />
+      <p><a href="/profile-setting">プロフィール設定はこちらから→</a></p>
+
+      {/* 設定セクション */}
+
       <h1>設定ページ</h1>
 
-      {/* 言語選択セクション */}
-      <div className="setting-section">
-        <label htmlFor="language">言語を選択：</label>
-        <select
-          id="language"
-          value={selectedLanguage}
-          onChange={(e) => setSelectedLanguage(e.target.value)}
-        >
-          <option value="ja">日本語</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-
-      {/* 文字サイズセクション */}
       <div className="setting-section">
         <label htmlFor="font-size">文字の大きさ：</label>
         <input
+          style={{ fontSize: "16px" }}
           type="range"
           id="font-size"
           min={12}
@@ -34,16 +32,12 @@ const Setting: React.FC = () => {
           value={fontSize}
           onChange={(e) => setFontSize(Number(e.target.value))}
         />
-        <span>{fontSize}px</span>
+        <span style={{ marginLeft: "10px" }}>{fontSize}px</span>
       </div>
 
       {/* プレビューセクション */}
-      <div className="preview" style={{ fontSize: `${fontSize}px` }}>
-        {selectedLanguage === "ja" ? (
-          <p>こんにちは！これは日本語のテキストです。文字の大きさを変更してみてください。</p>
-        ) : (
-          <p>Hello! This is a text in English. Try changing the font size.</p>
-        )}
+      <div className="preview" style={{ fontSize: `${fontSize}px` , marginTop: "20px" }}>
+        <p>こんにちは！これは日本語のテキストです。文字の大きさを変更してみてください。</p>
       </div>
     </div>
   );

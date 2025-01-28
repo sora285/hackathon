@@ -1,19 +1,11 @@
 import React, { useState } from "react";
-import "./Todo.css"; // スタイルを外部ファイルに分離
 
 const Todo: React.FC = () => {
-  // 初期状態
-  const [todos, setTodos] = useState([
-    { comment: "今日は洗濯物をやろう", completed: false },
-    { comment: "床を今日は拭こう", completed: true },
-    { comment: "データがなくならないようにしよう", completed: false },
-  ]);
-
+  const [todos, setTodos] = useState<{ comment: string; completed: boolean }[]>([]);
   const [newTodo, setNewTodo] = useState("");
 
-  // TODOを追加する関数
   const addTodo = () => {
-    if (newTodo.trim()) {
+    if (newTodo.trim() !== "") {
       setTodos([...todos, { comment: newTodo, completed: false }]);
       setNewTodo("");
     }
@@ -33,41 +25,97 @@ const Todo: React.FC = () => {
     setTodos(updatedTodos);
   };
 
+  const styles = {
+    table: {
+      width: "100%",
+      borderCollapse: "collapse" as "collapse",
+    },
+    th: {
+      border: "1px solid #ddd",
+      padding: "8px",
+      backgroundColor: "#f4f4f4",
+      textAlign: "left" as "left",
+    },
+    td: {
+      border: "1px solid #ddd",
+      padding: "8px",
+    },
+    addTodo: {
+      marginTop: "20px",
+    },
+    input: {
+      padding: "8px",
+      marginRight: "10px",
+    },
+    button: {
+      padding: "8px 12px",
+      backgroundColor: "#007BFF",
+      color: "white",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+    },
+    buttonHover: {
+      backgroundColor: "#0056b3",
+    },
+  };
+
   return (
-    <div className="todo">
+    <div style={{ fontFamily: "Arial" }}>
       <h1>TODOリスト</h1>
-      <table>
+      <table style={styles.table}>
         <thead>
           <tr>
-            <th className="id">ID</th>
-            <th className="comment">コメント</th>
-            <th className="state">状態</th>
-            <th className="button">操作</th>
+            <th style={styles.th}>ID</th>
+            <th style={styles.th}>コメント</th>
+            <th style={styles.th}>状態</th>
+            <th style={styles.th}>操作</th>
           </tr>
         </thead>
         <tbody>
           {todos.map((todo, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{todo.comment}</td>
-              <td>{todo.completed ? "完了" : "未完了"}</td>
-              <td>
-                <button onClick={() => toggleState(index)}>
-                  {todo.completed ? "未完了にする" : "完了にする"}
+              <td style={styles.td}>{index + 1}</td>
+              <td style={styles.td}>{todo.comment}</td>
+              <td style={styles.td}>
+                <button
+                  style={styles.button}
+                  onClick={() => toggleState(index)}
+                  onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
+                  onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
+                >
+                  {todo.completed ? "完了" : "未完了"}
                 </button>
-                <button onClick={() => deleteTodo(index)}>削除</button>
+              </td>
+              <td style={styles.td}>
+                <button
+                  style={styles.button}
+                  onClick={() => deleteTodo(index)}
+                  onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
+                  onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
+                >
+                  削除
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="add-todo">
+      <div style={styles.addTodo}>
         <input
+          type="text"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="新しいTODOを入力"
+          style={styles.input}
         />
-        <button onClick={addTodo}>追加</button>
+        <button
+          style={styles.button}
+          onClick={addTodo}
+          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
+        >
+          追加
+        </button>
       </div>
     </div>
   );
